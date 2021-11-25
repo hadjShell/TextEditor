@@ -3,6 +3,7 @@ package document;
 /** 
  * A class that represents a text document
  * @author UC San Diego Intermediate Programming MOOC team
+ * @author Hadjshell
  */
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public abstract class Document {
 	 */
 	protected List<String> getTokens(String pattern)
 	{
-		ArrayList<String> tokens = new ArrayList<String>();
+		ArrayList<String> tokens = new ArrayList<>();
 		Pattern tokSplitter = Pattern.compile(pattern);
 		Matcher m = tokSplitter.matcher(text);
 		
@@ -67,7 +68,40 @@ public abstract class Document {
 		// TODO: Implement this method so that you can call it from the 
 	    // getNumSyllables method in BasicDocument (module 2) and 
 	    // EfficientDocument (module 3).
-	    return 0;
+		int count = 0;
+		// check previous letter is vowel or not
+		boolean previousIsVowel = false;
+		char[] vowels = {'a', 'e', 'i', 'o', 'u', 'y', 'A', 'E', 'I', 'O', 'U', 'Y'};
+		char[] arrWord = word.toCharArray();
+
+		for (char c : arrWord) {
+			// if the char is a vowel
+			if (isInCharArray(c, vowels)) {
+				// if the previous char is not a vowel
+				if (!previousIsVowel) {
+					count++;
+					previousIsVowel = true;
+				}
+			}
+			// if the char is not a vowel
+			else
+				previousIsVowel = false;
+		}
+
+		if(arrWord[arrWord.length - 1] == 'e' && !isInCharArray(arrWord[arrWord.length - 2], vowels) && count > 1)
+			count -= 1;
+
+		return count;
+	}
+
+	/** A help method for checking a given char is in a char array or not
+	* */
+	private boolean isInCharArray(char test, char[] cArr) {
+		for (char c : cArr) {
+			if(c == test)
+				return true;
+		}
+		return false;
 	}
 	
 	/** A method for testing
@@ -132,7 +166,7 @@ public abstract class Document {
 	{
 	    // TODO: You will play with this method in week 1, and 
 		// then implement it in week 2
-	    return text.length();
+	    return 206.835 - 1.015 * (getNumWords() / getNumSentences()) - 84.6 * (getNumSyllables() / getNumWords());
 	}
 	
 	
