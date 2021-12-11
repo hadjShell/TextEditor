@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 /** A class for timing the EfficientDocument and BasicDocument classes
  * 
  * @author UC San Diego Intermediate Programming MOOC team
+ * @author Hadjshell
  *
  */
 
@@ -21,12 +22,12 @@ public class DocumentBenchmarking {
 
 	    // The text to test on
 	    String textfile = "data/warAndPeace.txt";
-		
+
 	    // The amount of characters to increment each step
 	    // You can play around with this
 		int increment = 20000;
 
-		// The number of steps to run.  
+		// The number of steps to run.
 		// You can play around with this.
 		int numSteps = 20;
 		
@@ -37,6 +38,7 @@ public class DocumentBenchmarking {
 		// TODO: Fill in the rest of this method so that it runs two loops
 		// and prints out timing results as described in the assignment 
 		// instructions and following the pseudocode below.
+		System.out.println("NumberOfChars\tBasicTime\tEfficientTime");
 		for (int numToCheck = start; numToCheck < numSteps*increment + start; 
 				numToCheck += increment)
 		{
@@ -57,8 +59,25 @@ public class DocumentBenchmarking {
 			 *     b. Calls fleshScore on this document
 			 * 6. Print out the time it took to complete the loop in step 5 
 			 *      (on the same line as the first print statement) followed by a newline (\n) 
-			 */  
-			 
+			 */
+			System.out.print(numToCheck + "\t");
+			String text = getStringFromFile(textfile, numToCheck);
+
+			// BasicDocument runtime
+			long startTime = System.nanoTime();
+			Document bd = new BasicDocument(text);
+			bd.getFleschScore();
+			long endTime = System.nanoTime();
+			double estTime = (endTime - startTime) / 100000000.0;
+			System.out.print(estTime + "\t");
+
+			// EfficientDocument runtime
+			startTime = System.nanoTime();
+			Document ed = new EfficientDocument(text);
+			ed.getFleschScore();
+			endTime = System.nanoTime();
+			estTime = (endTime - startTime) / 100000000.0;
+			System.out.println(estTime);
 		}
 	
 	}

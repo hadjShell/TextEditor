@@ -88,7 +88,7 @@ public abstract class Document {
 				previousIsVowel = false;
 		}
 
-		if(arrWord[arrWord.length - 1] == 'e' && !isInCharArray(arrWord[arrWord.length - 2], vowels) && count > 1)
+		if(count > 1 && arrWord[arrWord.length - 1] == 'e' && !isInCharArray(arrWord[arrWord.length - 2], vowels))
 			count -= 1;
 
 		return count;
