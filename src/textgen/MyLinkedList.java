@@ -6,6 +6,7 @@ import java.util.AbstractList;
 /** A class that implements a doubly linked list
  * 
  * @author UC San Diego Intermediate Programming MOOC team
+ * @author Hadjshell
  *
  * @param <E> The type of the elements stored in the list
  */
